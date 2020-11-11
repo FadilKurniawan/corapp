@@ -38,7 +38,8 @@ android {
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", 'BASE_URL', "\"https://reqres.in/api/\""
+            buildConfigField "String", 'BASE_URL_MEMBER', "\"https://reqres.in/api/users\""
+            buildConfigField "String", 'BASE_URL', "\"http://panti.suitdev.com/api/\""
             buildConfigField "String", 'ENCRYPT_KEY', "\"su!tmobilE777\""
             manifestPlaceholders = [enableCrashReporting:"true"]
         }
@@ -47,7 +48,8 @@ android {
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", 'BASE_URL', "\"https://reqres.in/api/\""
+            buildConfigField "String", 'BASE_URL_MEMBER', "\"https://reqres.in/api/users\""
+            buildConfigField "String", 'BASE_URL', "\"http://panti.suitdev.com/api/\""
             buildConfigField "String", 'ENCRYPT_KEY', "\"su!tmobilE777\""
             manifestPlaceholders = [enableCrashReporting:"false"]
         }

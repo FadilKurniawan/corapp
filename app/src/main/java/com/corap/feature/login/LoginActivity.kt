@@ -8,7 +8,7 @@ import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import com.corap.R
 import com.corap.base.ui.BaseActivity
-import com.corap.feature.member.MemberActivity
+import com.corap.feature.main.MainActivity
 import com.corap.firebase.remoteconfig.RemoteConfigHelper
 import com.corap.firebase.remoteconfig.RemoteConfigPresenter
 import com.corap.firebase.remoteconfig.RemoteConfigView
@@ -97,7 +97,7 @@ class LoginActivity : BaseActivity(), LoginView, RemoteConfigView, GoogleListene
     }
 
     override fun onLoginSuccess(message: String?) {
-        goToActivity(MemberActivity::class.java, null, clearIntent = true, isFinish = true)
+        goToActivity(MainActivity::class.java, null, clearIntent = true, isFinish = true)
     }
 
     override fun onLoginFailed(message: String?) {
@@ -170,6 +170,13 @@ class LoginActivity : BaseActivity(), LoginView, RemoteConfigView, GoogleListene
     }
 
     private fun actionClicked() {
+        relLogin.setOnClickListener {
+            if(edtEmail.text.isEmpty() || edtPassword.text.isEmpty()){
+                showAlertDialog("Email or Password cannot be empty")
+            }else{
+                loginPresenter?.loginPanti(edtEmail.text.toString(),edtPassword.text.toString())
+            }
+        }
         relGoogle.setOnClickListener {
             mGoogleHelper?.performSignIn(this)
         }
@@ -187,7 +194,7 @@ class LoginActivity : BaseActivity(), LoginView, RemoteConfigView, GoogleListene
         }
 
         tvSkip.setOnClickListener {
-            goToActivity(MemberActivity::class.java, null, clearIntent = true, isFinish = true)
+            goToActivity(MainActivity::class.java, null, clearIntent = true, isFinish = true)
         }
     }
 

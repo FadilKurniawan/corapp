@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SuitCoreBase</string>
+    <string name="app_name">SuitCoroutines</string>
 
 
     <string name="txt_fragment_test">This is fragment sample</string>
@@ -11,6 +11,9 @@
     <string name="txt_dialog_ok">OK</string>
     <string name="txt_error_global">An occur errors..</string>
     <string name="txt_dialog_no">No</string>
+    <string name="txt_button_login">Login</string>
+    <string name="txt_toolbar_search">Search Place</string>
+    <string name="txt_toolbar_home">Home</string>
 
     <!-- Twitter -->
     <string name="twitter_api_key">SrKNXbDg66CIEYUcG649d8pgO</string>

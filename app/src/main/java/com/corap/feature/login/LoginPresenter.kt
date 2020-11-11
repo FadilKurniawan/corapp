@@ -2,8 +2,11 @@ package com.corap.feature.login
 
 import com.corap.BaseApplication
 import com.corap.base.presenter.BasePresenter
+import com.corap.data.remote.services.APIService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -12,6 +15,8 @@ import kotlin.coroutines.CoroutineContext
 
 class LoginPresenter : BasePresenter<LoginView>{
 
+    @Inject
+    lateinit var apiService: APIService
     private var mvpView: LoginView? = null
     override var job: Job = Job()
 
@@ -33,5 +38,11 @@ class LoginPresenter : BasePresenter<LoginView>{
     override fun detachView() {
         mvpView = null
         job.cancel()
+    }
+
+    fun loginPanti(email:String,password:String) = launch(Dispatchers.Main) {
+        runCatching {
+//            apiService.getMembers()
+        }
     }
 }

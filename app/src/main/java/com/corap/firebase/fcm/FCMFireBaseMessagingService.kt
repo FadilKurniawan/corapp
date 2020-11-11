@@ -11,7 +11,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.corap.R
-import com.corap.feature.member.MemberActivity
+import com.corap.feature.main.MainActivity
 import com.corap.helper.CommonConstant
 import com.corap.helper.CommonUtils
 
@@ -45,7 +45,7 @@ class FCMFireBaseMessagingService : FirebaseMessagingService() {
         val intent: Intent
 
         try {
-            intent = CommonUtils.createIntent(this, MemberActivity::class.java)
+            intent = CommonUtils.createIntent(this, MainActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(this, 0  /*Request code */, intent,
                     PendingIntent.FLAG_ONE_SHOT)
 

@@ -10,75 +10,153 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/empty_state"
-        app:layout_constraintBottom_toTopOf="@+id/relGoogle"
+        app:layout_constraintBottom_toTopOf="@+id/form"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:ignore="ContentDescription" />
 
-    <RelativeLayout
-        android:id="@+id/relGoogle"
-        style="@style/BtnLayout"
-        android:layout_width="@dimen/_130sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="42dp"
-        app:layout_constraintBottom_toTopOf="@+id/relFacebook"
-        app:layout_constraintVertical_chainStyle="packed"
+    <LinearLayout
+        android:id="@+id/form"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2">
-
-        <TextView
-            style="@style/BtnText.Large"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_button_google_login" />
+            android:paddingLeft="@dimen/_40sdp"
+            android:paddingRight="@dimen/_40sdp"
+            android:orientation="vertical">
+            <EditText
+                android:paddingStart="@dimen/_10sdp"
+                android:background="@drawable/bg_edt_text"
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                />
+            <EditText
+                android:paddingStart="@dimen/_10sdp"
+                android:background="@drawable/bg_edt_text"
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="password"
+                android:inputType="textPassword"
+                />
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/relLogin"
+            style="@style/BtnLayout"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                style="@style/BtnText.Large"
+                android:text="LOGIN"/>
 
-    <RelativeLayout
-        android:id="@+id/relFacebook"
-        style="@style/BtnLayout"
-        android:layout_width="@dimen/_130sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintBottom_toTopOf="@+id/relTwitter"
+        </RelativeLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sosmed"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/tvSkip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relGoogle">
+        app:layout_constraintTop_toBottomOf="@+id/form">
 
-        <TextView
-            style="@style/BtnText.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_button_fb_login" />
+        <RelativeLayout
+            android:id="@+id/relGoogle"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignEnd="@id/relFacebook"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/relFacebook"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
 
-    <RelativeLayout
-        android:id="@+id/relTwitter"
-        style="@style/BtnLayout"
-        android:layout_width="@dimen/_130sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintBottom_toTopOf="@+id/tvSkip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relFacebook">
+                android:background="@drawable/ic_google" />
 
-        <TextView
-            style="@style/BtnText.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_button_twitter_login" />
+        </RelativeLayout>
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relFacebook"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignStart="@id/relGoogle"
+            android:layout_alignEnd="@id/relTwitter"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/relTwitter"
+            app:layout_constraintStart_toEndOf="@+id/relGoogle"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/ic_facebook" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relTwitter"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/relFacebook"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/ic_twitter" />
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <TextView
         android:id="@+id/tvSkip"
@@ -92,7 +170,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relTwitter"
+        app:layout_constraintTop_toBottomOf="@+id/sosmed"
         app:layout_constraintVertical_chainStyle="packed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

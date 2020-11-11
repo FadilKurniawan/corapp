@@ -6,6 +6,7 @@ import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 /**
  * Created by DODYDMW19 on 8/3/2017.
@@ -13,13 +14,15 @@ import retrofit2.http.Query
 
 interface APIService {
 
-    @GET("users")
+    @GET
     fun getMembers(
+            @Url url: String,
             @Query("per_page") perPage: Int,
             @Query("page") page: Int): Single<Results<User>>
 
-    @GET("users")
+    @GET
     fun getMembersCoro(
+            @Url url: String ,
             @Query("per_page") perPage: Int,
             @Query("page") page: Int): Deferred<Results<User>>
 

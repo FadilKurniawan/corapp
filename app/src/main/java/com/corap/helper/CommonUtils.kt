@@ -14,6 +14,8 @@ import com.corap.data.local.prefs.DataConstant
 import com.corap.data.local.prefs.SuitPreferences
 import com.corap.data.model.User
 import com.corap.feature.splashscreen.SplashScreenActivity
+import java.io.IOException
+import java.security.SecureRandom
 
 /**
  * Created by dodydmw19 on 7/18/18.
@@ -22,6 +24,7 @@ import com.corap.feature.splashscreen.SplashScreenActivity
 class CommonUtils {
 
     companion object {
+
 
         fun checkTwitterApp(context: Context): Boolean {
             return try {
@@ -78,6 +81,37 @@ class CommonUtils {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+
+        fun getKey() : ByteArray{
+            // Generate a random encryption key
+            val key = ByteArray(64)
+            SecureRandom().nextBytes(key)
+
+            return if(SuitPreferences.instance()?.getString(DataConstant.RANDOM_KEY) != null &&
+                    SuitPreferences.instance()?.getString(DataConstant.RANDOM_KEY).toString().isNotEmpty()){
+                SuitPreferences.instance()?.getObject(DataConstant.RANDOM_KEY, ByteArray::class.java)!!
+            }else{
+                SuitPreferences.instance()?.saveObject(DataConstant.RANDOM_KEY, key)
+                key
+            }
+        }
+
+        fun loadJSONFromAsset(json_name: String, context: Context): String? {
+            val json: String
+            try {
+                val `is` = context.assets.open(json_name)
+                val size = `is`.available()
+                val buffer = ByteArray(size)
+                `is`.read(buffer)
+                `is`.close()
+                json = String(buffer, charset("UTF-8"))
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+                return null
+            }
+
+            return json
         }
 
         fun restartApp(activity: Activity?) {

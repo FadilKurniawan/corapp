@@ -2,6 +2,7 @@ package com.corap.feature.member
 
 import androidx.lifecycle.LifecycleOwner
 import com.corap.BaseApplication
+import com.corap.BuildConfig
 import com.corap.R
 import com.corap.base.presenter.BasePresenter
 import com.corap.data.local.RealmHelper
@@ -45,7 +46,7 @@ class MemberPresenter : BasePresenter<MemberView> {
 
     fun getMember(currentPage: Int?) {
         mCompositeDisposable?.add(
-                apiService.getMembers(10, currentPage!!)
+                apiService.getMembers(BuildConfig.BASE_URL_MEMBER, 10, currentPage!!)
                         .map {
                             saveToCache(it.arrayData, currentPage)
                             it
@@ -74,7 +75,7 @@ class MemberPresenter : BasePresenter<MemberView> {
 
     fun getMemberCoro(currentPage: Int?) = launch(Dispatchers.Main) {
         val result = runCatching {
-            apiService.getMembersCoro(10,currentPage!!).await()
+            apiService.getMembersCoro(BuildConfig.BASE_URL_MEMBER,10,currentPage!!).await()
         }.onSuccess {
             if (it.arrayData?.isNotEmpty()!!) {
                 mvpView?.onMemberLoaded(it.arrayData!!)

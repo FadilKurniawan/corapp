@@ -14,4 +14,9 @@ object CommonConstant {
     const val CHECK_APP_VERSION = "app_version"
     const val CHECK_BASE_URL = "base_url"
 
+    //HOME MENU
+    const val MENU_HOME = "home"
+    const val MENU_FRAGMENT_1 = "fragment-1"
+    const val MENU_FRAGMENT_2 = "fragment-2"
+    const val MENU_FRAGMENT_3 = "fragment-3"
 }
