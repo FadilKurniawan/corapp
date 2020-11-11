@@ -5,7 +5,10 @@ import com.corap.BaseApplication
 import com.corap.base.presenter.BasePresenter
 import com.corap.data.remote.services.APIService
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 
 /**
@@ -18,6 +21,7 @@ class OneSignalPresenter : BasePresenter<OneSignalView> {
     lateinit var apiService: APIService
     private var mvpView: OneSignalView? = null
     private var mCompositeDisposable: CompositeDisposable? = CompositeDisposable()
+    override var job: Job = Job()
 
     init {
         BaseApplication.applicationComponent.inject(this)
@@ -43,6 +47,7 @@ class OneSignalPresenter : BasePresenter<OneSignalView> {
     override fun detachView() {
         mvpView = null
         mCompositeDisposable.let { mCompositeDisposable?.clear() }
+        job.cancel()
     }
 
 

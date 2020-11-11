@@ -10,6 +10,7 @@ import com.corap.BuildConfig
 import com.corap.data.local.prefs.DataConstant
 import com.corap.data.local.prefs.SuitPreferences
 import com.corap.helper.CommonUtils
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -40,6 +41,7 @@ object BaseServiceFactory {
                 .baseUrl(url)
                 .client(provideOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(gSon))
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
 

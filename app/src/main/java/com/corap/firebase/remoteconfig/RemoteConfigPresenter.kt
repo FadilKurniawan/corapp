@@ -11,6 +11,9 @@ import com.corap.data.local.prefs.DataConstant
 import com.corap.data.local.prefs.SuitPreferences
 import com.corap.helper.CommonConstant
 import com.corap.helper.CommonUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
 /**
  *
@@ -28,6 +31,7 @@ class RemoteConfigPresenter : BasePresenter<RemoteConfigView> {
     private var mFireBaseRemoteConfig: FirebaseRemoteConfig? = null
     private var mvpView: RemoteConfigView? = null
     private val cacheExpiration: Long = 0 // 1 hour in seconds.
+    override var job: Job = Job()
 
     init {
         BaseApplication.applicationComponent.inject(this)
@@ -143,6 +147,7 @@ class RemoteConfigPresenter : BasePresenter<RemoteConfigView> {
 
     override fun detachView() {
         mvpView = null
+        job.cancel()
     }
 
 }

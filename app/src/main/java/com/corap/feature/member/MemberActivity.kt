@@ -50,7 +50,8 @@ class MemberActivity : BaseActivity(),
         memberPresenter?.attachView(this)
         memberPresenter?.getMemberCache()
         rvMember.initialShimmer()
-        memberPresenter?.getMember(currentPage)
+//        memberPresenter?.getMember(currentPage)
+        memberPresenter?.getMemberCoro(currentPage)
     }
 
     private fun setupRecyclerView() {

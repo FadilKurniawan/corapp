@@ -3,6 +3,7 @@ package com.corap.data.remote.services
 import com.corap.data.model.User
 import com.corap.data.remote.wrapper.Results
 import io.reactivex.Single
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -16,5 +17,10 @@ interface APIService {
     fun getMembers(
             @Query("per_page") perPage: Int,
             @Query("page") page: Int): Single<Results<User>>
+
+    @GET("users")
+    fun getMembersCoro(
+            @Query("per_page") perPage: Int,
+            @Query("page") page: Int): Deferred<Results<User>>
 
 }

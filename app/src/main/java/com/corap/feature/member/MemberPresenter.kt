@@ -11,6 +11,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.realm.RealmResults
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -24,6 +27,8 @@ class MemberPresenter : BasePresenter<MemberView> {
     private var mvpView: MemberView? = null
     private var mRealm: RealmHelper<User>? = RealmHelper()
     private var mCompositeDisposable: CompositeDisposable? = CompositeDisposable()
+
+    override var job: Job = Job()
 
     init {
         BaseApplication.applicationComponent.inject(this)
@@ -67,6 +72,20 @@ class MemberPresenter : BasePresenter<MemberView> {
         )
     }
 
+    fun getMemberCoro(currentPage: Int?) = launch(Dispatchers.Main) {
+        val result = runCatching {
+            apiService.getMembersCoro(10,currentPage!!).await()
+        }.onSuccess {
+            if (it.arrayData?.isNotEmpty()!!) {
+                mvpView?.onMemberLoaded(it.arrayData!!)
+            } else {
+                mvpView?.onMemberEmpty()
+            }
+        }.onFailure {
+            mvpView?.onFailed(it)
+        }
+    }
+
     private fun saveToCache(data: List<User>?, currentPage: Int?) {
         if (data != null && data.isNotEmpty()) {
             if (currentPage == 1) {
@@ -94,5 +113,6 @@ class MemberPresenter : BasePresenter<MemberView> {
     override fun detachView() {
         mvpView = null
         mCompositeDisposable.let { mCompositeDisposable?.clear() }
+        job.cancel()
     }
 }
