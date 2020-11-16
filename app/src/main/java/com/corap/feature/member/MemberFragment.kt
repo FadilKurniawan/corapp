@@ -7,11 +7,7 @@ import com.corap.R
 import com.corap.base.ui.BaseFragment
 import com.corap.base.ui.recyclerview.BaseRecyclerView
 import com.corap.data.model.ErrorCodeHelper
-import com.corap.data.model.User
-import com.corap.feature.member.MemberAdapter
-import com.corap.feature.member.MemberItemView
-import com.corap.feature.member.MemberPresenter
-import com.corap.feature.member.MemberView
+import com.corap.data.model.UserMembers
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.activity_member.*
@@ -83,7 +79,7 @@ class MemberFragment : BaseFragment(),
         memberPresenter?.getMemberCoro(currentPage)
     }
 
-    private fun setData(data: List<User>?) {
+    private fun setData(data: List<UserMembers>?) {
         data?.let {
             if (currentPage == 1) {
                 memberAdapter.let {
@@ -131,14 +127,14 @@ class MemberFragment : BaseFragment(),
         })
     }
 
-    override fun onMemberCacheLoaded(members: RealmResults<User>?) {
+    override fun onMemberCacheLoaded(members: RealmResults<UserMembers>?) {
         members?.let {
             if (it.isNotEmpty()) setData(members)
         }
         finishLoad(rvMember)
     }
 
-    override fun onMemberLoaded(members: List<User>?) {
+    override fun onMemberLoaded(members: List<UserMembers>?) {
         members.let {
             if (members?.isNotEmpty()!!) setData(members)
         }

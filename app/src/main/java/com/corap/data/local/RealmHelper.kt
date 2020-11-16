@@ -1,6 +1,5 @@
 package com.corap.data.local
 
-import com.corap.data.model.User
 import io.realm.*
 
 /**

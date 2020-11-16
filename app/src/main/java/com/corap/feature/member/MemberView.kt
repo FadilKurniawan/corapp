@@ -1,8 +1,7 @@
 package com.corap.feature.member
 
 import com.corap.base.presenter.MvpView
-import com.corap.data.model.User
-import io.realm.RealmList
+import com.corap.data.model.UserMembers
 import io.realm.RealmResults
 
 /**
@@ -11,9 +10,9 @@ import io.realm.RealmResults
 
 interface MemberView : MvpView {
 
-    fun onMemberCacheLoaded(members: RealmResults<User>?)
+    fun onMemberCacheLoaded(members: RealmResults<UserMembers>?)
 
-    fun onMemberLoaded(members: List<User>?)
+    fun onMemberLoaded(members: List<UserMembers>?)
 
     fun onMemberEmpty()
 

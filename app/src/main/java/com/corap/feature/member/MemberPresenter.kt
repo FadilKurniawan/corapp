@@ -6,7 +6,7 @@ import com.corap.BuildConfig
 import com.corap.R
 import com.corap.base.presenter.BasePresenter
 import com.corap.data.local.RealmHelper
-import com.corap.data.model.User
+import com.corap.data.model.UserMembers
 import com.corap.data.remote.services.APIService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -26,7 +26,7 @@ class MemberPresenter : BasePresenter<MemberView> {
     @Inject
     lateinit var apiService: APIService
     private var mvpView: MemberView? = null
-    private var mRealm: RealmHelper<User>? = RealmHelper()
+    private var mRealm: RealmHelper<UserMembers>? = RealmHelper()
     private var mCompositeDisposable: CompositeDisposable? = CompositeDisposable()
 
     override var job: Job = Job()
@@ -37,7 +37,7 @@ class MemberPresenter : BasePresenter<MemberView> {
 
     fun getMemberCache() {
         /* from Realm Model */
-        val data: RealmResults<User>? = mRealm?.getData(User::class.java)
+        val data: RealmResults<UserMembers>? = mRealm?.getData(UserMembers::class.java)
 
         //if (data == null) data = emptyList()
 
@@ -78,7 +78,14 @@ class MemberPresenter : BasePresenter<MemberView> {
             apiService.getMembersCoro(BuildConfig.BASE_URL_MEMBER,10,currentPage!!).await()
         }.onSuccess {
             if (it.arrayData?.isNotEmpty()!!) {
-                mvpView?.onMemberLoaded(it.arrayData!!)
+                val rest = it.arrayData
+                runCatching{
+                    saveToCache(it.arrayData, currentPage)
+                }.onSuccess {
+                    mvpView?.onMemberLoaded(rest)
+                }.onFailure {
+                    mvpView?.onFailed(it)
+                }
             } else {
                 mvpView?.onMemberEmpty()
             }
@@ -87,11 +94,11 @@ class MemberPresenter : BasePresenter<MemberView> {
         }
     }
 
-    private fun saveToCache(data: List<User>?, currentPage: Int?) {
+    private fun saveToCache(data: List<UserMembers>?, currentPage: Int?) {
         if (data != null && data.isNotEmpty()) {
             if (currentPage == 1) {
                 // remove current realm data
-                mRealm?.deleteData(User())
+                mRealm?.deleteData(UserMembers())
             }
 
             // save to realm

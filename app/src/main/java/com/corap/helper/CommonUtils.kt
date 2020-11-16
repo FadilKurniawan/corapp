@@ -6,13 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.NameNotFoundException
 import android.net.Uri
-import android.os.Bundle
 import com.jakewharton.processphoenix.ProcessPhoenix
 import com.corap.BuildConfig
 import com.corap.data.local.RealmHelper
 import com.corap.data.local.prefs.DataConstant
 import com.corap.data.local.prefs.SuitPreferences
-import com.corap.data.model.User
+import com.corap.data.model.UserMembers
 import com.corap.feature.splashscreen.SplashScreenActivity
 import java.io.IOException
 import java.security.SecureRandom
@@ -135,7 +134,7 @@ class CommonUtils {
         fun clearLocalStorage() {
             val suitPreferences = SuitPreferences.instance()
             suitPreferences?.clearSession()
-            val realm: RealmHelper<User> = RealmHelper()
+            val realm: RealmHelper<UserMembers> = RealmHelper()
             realm.removeAllData()
         }
 
